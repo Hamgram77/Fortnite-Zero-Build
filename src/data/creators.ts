@@ -1,14 +1,14 @@
 import type { Creator } from '../types';
 
 // Add or edit creator records here. Publish links only after checking identity.
-// Creator artwork is intentionally omitted unless reusable-image permission is clear.
+// Icon Series artwork is used only when the outfit is confirmed by an official Fortnite source.
 export const creators: Creator[] = [
   {
     id: 'the-littlest-snail',
     displayName: 'The Littlest Snail',
     initials: 'TS',
     imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageNote: 'Neutral placeholder used; no official Fortnite Icon Series outfit was found.',
     description: 'A family-friendly Fortnite video creator and livestreamer associated with Good Gamers.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
     zeroBuildSpecialist: false,
@@ -24,7 +24,7 @@ export const creators: Creator[] = [
     displayName: 'HappyHappyGal',
     initials: 'HG',
     imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageNote: 'Neutral placeholder used; no official Fortnite Icon Series outfit was found.',
     description: 'A Fortnite-focused creator who publishes gameplay, clips, livestreams, and community content.',
     zeroBuildRelevance: 'Fortnite and some Zero Build-related content are visible, but the channel is not labeled here as a Zero Build specialist.',
     zeroBuildSpecialist: false,
@@ -40,8 +40,8 @@ export const creators: Creator[] = [
     id: 'ali-a',
     displayName: 'Ali-A',
     initials: 'AA',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageUrl: 'creators/ali-a-icon.png',
+    imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'A British gaming creator whose official channel regularly features Fortnite videos and gameplay.',
     zeroBuildRelevance: 'Fortnite content is verified; the channel is not labeled here as a dedicated Zero Build specialist.',
     zeroBuildSpecialist: false,
@@ -50,14 +50,14 @@ export const creators: Creator[] = [
     channels: [
       { platform: 'YouTube', label: 'Ali-A', url: 'https://www.youtube.com/@AliA', verified: true },
     ],
-    evidence: ['https://www.youtube.com/@AliA'],
+    evidence: ['https://www.youtube.com/@AliA', 'https://www.fortnite.com/news/ali-a-is-unleashed-in-the-fortnite-icon-series'],
   },
   {
     id: 'typical-gamer',
     displayName: 'Typical Gamer',
     initials: 'TG',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageUrl: 'creators/typical-gamer-icon.png',
+    imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'A gaming creator whose official channel regularly features Fortnite gameplay and livestreams.',
     zeroBuildRelevance: 'Has published Zero Build-specific Fortnite map and gameplay content; the broader channel covers multiple games and modes.',
     zeroBuildSpecialist: false,
@@ -67,15 +67,15 @@ export const creators: Creator[] = [
       { platform: 'YouTube', label: 'Typical Gamer', url: 'https://www.youtube.com/@TypicalGamer', verified: true },
       { platform: 'Fortnite', label: 'Official creator profile', url: 'https://www.fortnite.com/@typicalgamer', verified: true },
     ],
-    evidence: ['https://www.youtube.com/@TypicalGamer', 'https://www.fortnite.com/@typicalgamer'],
+    evidence: ['https://www.youtube.com/@TypicalGamer', 'https://www.fortnite.com/@typicalgamer', 'https://www.fortnite.com/competitive/events/S40_TypicalGamerCup/'],
   },
   {
     id: 'loserfruit',
     displayName: 'Loserfruit',
     alsoKnownAs: 'Lufu',
     initials: 'LF',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageUrl: 'creators/loserfruit-icon.png',
+    imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'An Australian gaming creator and livestreamer known for Fortnite videos alongside other gaming content.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
     zeroBuildSpecialist: false,
@@ -84,14 +84,14 @@ export const creators: Creator[] = [
     channels: [
       { platform: 'YouTube', label: 'Loserfruit', url: 'https://www.youtube.com/@Loserfruit', verified: true },
     ],
-    evidence: ['https://www.youtube.com/@Loserfruit'],
+    evidence: ['https://www.youtube.com/@Loserfruit', 'https://www.fortnite.com/news/loserfruit-joins-the-fortnite-icon-series'],
   },
   {
     id: 'lachlan',
     displayName: 'Lachlan',
     initials: 'LP',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; profile-image reuse permission was not confirmed.',
+    imageUrl: 'creators/lachlan-icon.png',
+    imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'An Australian gaming creator and PWR founder whose main channel is known for Fortnite content.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
     zeroBuildSpecialist: false,
@@ -100,6 +100,6 @@ export const creators: Creator[] = [
     channels: [
       { platform: 'YouTube', label: 'Lachlan', url: 'https://www.youtube.com/@Lachlan', verified: true },
     ],
-    evidence: ['https://www.youtube.com/@Lachlan', 'https://pwr.supply/pages/about'],
+    evidence: ['https://www.youtube.com/@Lachlan', 'https://pwr.supply/pages/about', 'https://www.fortnite.com/news/lachlan-joins-the-fortnite-icon-series'],
   },
 ];

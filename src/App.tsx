@@ -83,7 +83,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <div><strong>Zero Build Field Guide</strong><p>Independent community project. Not affiliated with or endorsed by Epic Games.</p></div>
+        <div><strong>Zero Build Field Guide</strong><p>Independent community project. Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</p></div>
         <a href="#/about">Sources & methodology <span aria-hidden="true">→</span></a>
       </footer>
     </div>
