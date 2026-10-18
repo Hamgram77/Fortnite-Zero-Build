@@ -1,2 +1,76 @@
 # Fortnite-Zero-Build
 Prazing Epic Games for the creation of Fortnite Zero Build
+
+## Zero Build Field Guide
+
+Zero Build is more than a game mode. It's a community.
+
+This repository contains an independent, responsive information site for Fortnite Zero Build players. It covers weapon references, Battle Royale loot-pool reports, official updates, community-selected creators, and practical strategy. The interface is original and the project is not affiliated with or endorsed by Epic Games.
+
+## Technology
+
+- React and TypeScript
+- Vite static build
+- CSS with no UI framework
+- Hash-based page navigation for reliable GitHub Pages hosting
+- Local, typed data-provider layer with no backend and no secret keys
+
+## Local development
+
+Requirements: Node.js 22 or a currently supported LTS release and npm.
+
+```bash
+npm install
+npm run dev
+```
+
+Vite prints the local preview URL. The development server uses root paths locally; the production build is configured for `/Fortnite-Zero-Build/`.
+
+## Checks and production build
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
+```
+
+The production output is written to `dist/`. `vite.config.ts` sets the repository-relative base path required by the GitHub Pages project URL.
+
+## Data maintenance
+
+The UI loads content through `src/providers/contentProvider.ts`, keeping presentation separate from the maintained data snapshot.
+
+- Weapon references: `src/data/weapons.ts`
+- Loot report: `src/data/loot.ts`
+- Official updates: `src/data/updates.ts`
+- Creator directory: `src/data/creators.ts`
+- Strategy guides: `src/data/guides.ts`
+
+When updating data, change the source link, version context, and verification date together. Never fill an unknown field with a guess. Battle Royale information must not be labeled as Zero Build-specific unless its source confirms that scope.
+
+## Sources and limitations
+
+Official Fortnite news and Epic Games Community update notes are the primary sources for announcements and availability. Selected rarity-specific weapon values are dated community-reference snapshots and are labeled with their version context in the interface.
+
+The reviewed public APIs did not provide a verified, complete, browser-safe source for current Zero Build weapon stats and loot. The first version therefore uses manually maintained, source-attributed data instead of pretending to be live. No API key or secret is required.
+
+Creator links are verified individually. Creator profile images are not copied when reusable-image permission is unclear; the site uses neutral initials instead. Listing a creator does not imply endorsement or affiliation.
+
+## GitHub Pages deployment
+
+The included `.github/workflows/deploy.yml` workflow checks and builds the site, then deploys `dist/` when changes are pushed to `main` or the workflow is run manually.
+
+After reviewing and committing the files:
+
+1. On GitHub, open **Settings → Pages**.
+2. Under **Build and deployment**, choose **GitHub Actions** as the source.
+3. Push the reviewed commit to `main`.
+4. Open the repository's **Actions** tab and wait for the Pages workflow to finish.
+5. Visit `https://hamgram77.github.io/Fortnite-Zero-Build/`.
+
+No commit or push is performed automatically by this project setup.
+
+## Corrections
+
+After publication, use the repository's GitHub Issues page for source corrections or creator-link updates. Do not post private contact information or credentials.
