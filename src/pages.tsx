@@ -138,7 +138,7 @@ export function CreatorsPage({ creators }: { creators: Creator[] }) {
       <p>{creator.description}</p><div className="relevance"><strong>Zero Build check</strong><span>{creator.zeroBuildRelevance}</span></div>
       {creator.channels.length ? <div className="channel-list">{creator.channels.filter((channel) => channel.verified).map((channel) => <a key={channel.url} href={channel.url} target="_blank" rel="noreferrer"><span>{channel.platform}</span><strong>{channel.label}</strong><b aria-hidden="true">↗</b><span className="sr-only"> (opens in a new tab)</span></a>)}</div> : <div className="channel-pending">No channel published until identity is confirmed.</div>}</div>
     </article>)}</div> : <div className="verification-list">{creators.map((creator) => <article key={creator.id}><div><span className={`verify-dot ${creator.verificationStatus}`} /><h2>{creator.displayName}</h2></div><p>{creator.verificationNote}</p><small>{creator.imageNote}</small></article>)}</div>}
-    <div className="notice neutral"><strong>Community listing policy</strong><span>Creators do not endorse or sponsor this project. Profile art is replaced with neutral initials until explicit reusable-image permission is known.</span></div>
+    <div className="notice neutral"><strong>Community listing policy</strong><span>This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project. Profile art is replaced with neutral initials until explicit reusable-image permission is known.</span></div>
   </section>;
 }
 
