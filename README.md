@@ -59,6 +59,8 @@ Creator links are verified individually. Creator cards use confirmed Fortnite Ic
 
 ## GitHub Pages deployment
 
+The production build prerenders a complete semantic HTML snapshot into `dist/index.html` before deployment. This keeps the existing interactive React interface while making the full maintained content readable without executing JavaScript. The repository and deployed artifact also include `.nojekyll`, an allow-all `robots.txt`, and a sitemap.
+
 The included `.github/workflows/deploy.yml` workflow checks and builds the site, then deploys `dist/` when changes are pushed to `main` or the workflow is run manually.
 
 After reviewing and committing the files:

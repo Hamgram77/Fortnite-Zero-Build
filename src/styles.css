@@ -19,6 +19,20 @@
   --max: 1240px;
 }
 
+/* Build-time HTML snapshot shown to crawlers and no-JavaScript visitors. */
+.static-snapshot .static-section { scroll-margin-top: 6rem; }
+.static-snapshot .static-section + .static-section { border-top: 1px solid var(--line); }
+.static-snapshot .static-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.static-snapshot .static-card-grid article,
+.static-snapshot .static-list article,
+.static-snapshot #static-about > article { padding: 1.25rem; border: 1px solid var(--line); background: var(--panel); }
+.static-snapshot .static-list { display: grid; gap: 1rem; }
+.static-snapshot article img { width: 7rem; height: 7rem; object-fit: contain; }
+.static-snapshot article dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.static-snapshot article dl div { padding: .5rem; background: var(--panel-strong); }
+.static-snapshot article dt { color: var(--muted); font-size: .75rem; text-transform: uppercase; }
+.static-snapshot article dd { margin: .2rem 0 0; font-weight: 700; }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: #070a12; }
 body { margin: 0; min-width: 0; min-height: 100vh; background: radial-gradient(circle at 85% 5%, rgba(73,225,255,.09), transparent 28rem), radial-gradient(circle at 10% 35%, rgba(156,124,255,.08), transparent 32rem), #070a12; }
