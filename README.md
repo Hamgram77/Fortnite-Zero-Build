@@ -55,7 +55,7 @@ Official Fortnite news and Epic Games Community update notes are the primary sou
 
 The reviewed public APIs did not provide a verified, complete, browser-safe source for current Zero Build weapon stats and loot. The first version therefore uses manually maintained, source-attributed data instead of pretending to be live. No API key or secret is required.
 
-Creator links are verified individually. Confirmed Fortnite Icon Series creators use their in-game outfit artwork under Epic’s Fan Content Policy; creators without a confirmed Icon Series outfit use neutral initials. Listing a creator does not imply endorsement or affiliation.
+Creator links are verified individually. Creator cards use confirmed Fortnite Icon Series outfits or featured outfits from official creator Locker Bundles under Epic’s Fan Content Policy. Listing a creator does not imply endorsement or affiliation.
 
 ## GitHub Pages deployment
 

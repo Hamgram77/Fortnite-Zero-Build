@@ -48,6 +48,7 @@ export interface Creator {
   alsoKnownAs?: string;
   initials: string;
   imageUrl: string | null;
+  imageAlt?: string;
   imageNote: string;
   description: string;
   zeroBuildRelevance: string;

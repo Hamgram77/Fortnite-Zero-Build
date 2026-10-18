@@ -135,14 +135,14 @@ export function CreatorsPage({ creators }: { creators: Creator[] }) {
     {tab === 'directory' ? <div className="creator-grid">{creators.map((creator) => <article className={`creator-card ${creator.verificationStatus}`} key={creator.id}>
       <div className={`creator-avatar${creator.imageUrl ? ' has-image' : ''}`}>
         {creator.imageUrl
-          ? <img src={`${import.meta.env.BASE_URL}${creator.imageUrl}`} alt={`${creator.displayName} Fortnite Icon Series outfit`} loading="lazy" />
+          ? <img src={`${import.meta.env.BASE_URL}${creator.imageUrl}`} alt={creator.imageAlt ?? `${creator.displayName} Fortnite creator outfit`} loading="lazy" />
           : <span role="img" aria-label={`Neutral placeholder for ${creator.displayName}`}>{creator.initials}</span>}
       </div>
       <div className="creator-body"><div className="creator-title"><div><h2>{creator.displayName}</h2>{creator.alsoKnownAs && <p>Also known as {creator.alsoKnownAs}</p>}</div><span className={`verify-badge ${creator.verificationStatus}`}>{creator.verificationStatus === 'verified' ? 'Identity checked' : 'Needs confirmation'}</span></div>
       <p>{creator.description}</p><div className="relevance"><strong>Zero Build check</strong><span>{creator.zeroBuildRelevance}</span></div>
       {creator.channels.length ? <div className="channel-list">{creator.channels.filter((channel) => channel.verified).map((channel) => <a key={channel.url} href={channel.url} target="_blank" rel="noreferrer"><span>{channel.platform}</span><strong>{channel.label}</strong><b aria-hidden="true">↗</b><span className="sr-only"> (opens in a new tab)</span></a>)}</div> : <div className="channel-pending">No channel published until identity is confirmed.</div>}</div>
     </article>)}</div> : <div className="verification-list">{creators.map((creator) => <article key={creator.id}><div><span className={`verify-dot ${creator.verificationStatus}`} /><h2>{creator.displayName}</h2></div><p>{creator.verificationNote}</p><small>{creator.imageNote}</small></article>)}</div>}
-    <div className="notice neutral"><strong>Community listing policy</strong><span>This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project. Confirmed Icon Series outfits use Fortnite artwork; creators without one keep neutral initials.</span></div>
+    <div className="notice neutral"><strong>Community listing policy</strong><span>This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project. Creator portraits show confirmed Icon Series outfits or featured outfits from official creator Locker Bundles.</span></div>
   </section>;
 }
 

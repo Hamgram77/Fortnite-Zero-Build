@@ -9,4 +9,9 @@ The cosmetic image files were retrieved from the public Fortnite-API cosmetic ca
 - `loserfruit-icon.png` — [official Loserfruit announcement](https://www.fortnite.com/news/loserfruit-joins-the-fortnite-icon-series)
 - `lachlan-icon.png` — [official Lachlan announcement](https://www.fortnite.com/news/lachlan-joins-the-fortnite-icon-series)
 
+The following transparent portraits were created from images supplied by the site owner using the built-in ImageGen background-extraction workflow. Only the backgrounds and unrelated edge artifacts were removed:
+
+- `littlest-snail-starflare.png` — Starflare, featured in [LittlestSnail's official Locker Bundle](https://www.fortnite.com/item-shop/offers/littlestsnails-locker-bundle-18aa761b?itemNotAvailable=true)
+- `happyhappygal-miss-bunny-penny.png` — Miss Bunny Penny, featured in HappyHappyGal's Locker Bundle as documented by Fortnite's [Sun Sprout listing](https://www.fortnite.com/item-shop/back-bling/sun-sprout-39edfd30?itemNotAvailable=true)
+
 Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.

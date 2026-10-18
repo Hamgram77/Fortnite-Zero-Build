@@ -1,14 +1,15 @@
 import type { Creator } from '../types';
 
 // Add or edit creator records here. Publish links only after checking identity.
-// Icon Series artwork is used only when the outfit is confirmed by an official Fortnite source.
+// Creator-card artwork is used only for confirmed Icon Series outfits or confirmed Locker Bundle selections.
 export const creators: Creator[] = [
   {
     id: 'the-littlest-snail',
     displayName: 'The Littlest Snail',
     initials: 'TS',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; no official Fortnite Icon Series outfit was found.',
+    imageUrl: 'creators/littlest-snail-starflare.png',
+    imageAlt: 'The Littlest Snail’s featured Starflare Fortnite outfit',
+    imageNote: 'Starflare is featured in LittlestSnail’s official Locker Bundle; artwork is shown under Epic’s Fan Content Policy.',
     description: 'A family-friendly Fortnite video creator and livestreamer known for community events and welcoming viewer lobbies. Her official Locker Bundle features the cosmic Starflare outfit.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
     zeroBuildSpecialist: false,
@@ -23,8 +24,9 @@ export const creators: Creator[] = [
     id: 'happy-happy-gal',
     displayName: 'HappyHappyGal',
     initials: 'HG',
-    imageUrl: null,
-    imageNote: 'Neutral placeholder used; no official Fortnite Icon Series outfit was found.',
+    imageUrl: 'creators/happyhappygal-miss-bunny-penny.png',
+    imageAlt: 'HappyHappyGal’s featured Miss Bunny Penny Fortnite outfit',
+    imageNote: 'Miss Bunny Penny is featured in HappyHappyGal’s official Locker Bundle; artwork is shown under Epic’s Fan Content Policy.',
     description: 'A vibrant Fortnite streamer and community host known for positive energy, viewer customs, and spirited squad gameplay. Her official Locker Bundle features the Miss Bunny Penny outfit.',
     zeroBuildRelevance: 'Fortnite and some Zero Build-related content are visible, but the channel is not labeled here as a Zero Build specialist.',
     zeroBuildSpecialist: false,
@@ -41,6 +43,7 @@ export const creators: Creator[] = [
     displayName: 'Ali-A',
     initials: 'AA',
     imageUrl: 'creators/ali-a-icon.png',
+    imageAlt: 'Ali-A Fortnite Icon Series outfit',
     imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'A prominent figure in the global Fortnite community, known for update analysis, weapon breakdowns, and widely viewed gameplay videos. His long-running presence is reflected in an official Icon Series outfit with multiple customizable armor styles.',
     zeroBuildRelevance: 'Fortnite content is verified; the channel is not labeled here as a dedicated Zero Build specialist.',
@@ -57,6 +60,7 @@ export const creators: Creator[] = [
     displayName: 'Typical Gamer',
     initials: 'TG',
     imageUrl: 'creators/typical-gamer-icon.png',
+    imageAlt: 'Typical Gamer Fortnite Icon Series outfit',
     imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'A major gaming streamer known for mechanical gameplay, high-elimination runs, and tournament coverage. Across Build and Zero Build, his channel also highlights custom Fortnite maps and major community competitions.',
     zeroBuildRelevance: 'Has published Zero Build-specific Fortnite map and gameplay content; the broader channel covers multiple games and modes.',
@@ -75,6 +79,7 @@ export const creators: Creator[] = [
     alsoKnownAs: 'Lufu',
     initials: 'LF',
     imageUrl: 'creators/loserfruit-icon.png',
+    imageAlt: 'Loserfruit Fortnite Icon Series outfit',
     imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'An influential Australian gaming creator and early Fortnite community figure, known for upbeat challenge videos and energetic squad streams. She became the second Fortnite community creator to receive an Icon Series outfit.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
@@ -91,6 +96,7 @@ export const creators: Creator[] = [
     displayName: 'Lachlan',
     initials: 'LP',
     imageUrl: 'creators/lachlan-icon.png',
+    imageAlt: 'Lachlan Fortnite Icon Series outfit',
     imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
     description: 'A leading Australian gaming creator and founder of the esports organization PWR. Known for large-scale Fortnite challenges and creative game concepts, his legacy is represented by an official lightning-themed Icon Series outfit.',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
