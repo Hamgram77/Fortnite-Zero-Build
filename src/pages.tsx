@@ -128,10 +128,10 @@ export function UpdatesPage({ updates }: { updates: UpdateItem[] }) {
 }
 
 export function CreatorsPage({ creators }: { creators: Creator[] }) {
-  const [tab, setTab] = useState<'directory' | 'verification' | 'interviews'>('directory');
+  const [tab, setTab] = useState<'directory' | 'verification'>('directory');
   return <section className="section-wrap page-section">
     <PageHeader eyebrow="Community directory" title="Creators in the field" copy="Verified public destinations for creators selected by the site owner. A listing is a community reference—not an endorsement, partnership, or affiliation." />
-    <div className="subtabs" role="tablist" aria-label="Creator directory views"><button role="tab" aria-selected={tab === 'directory'} onClick={() => setTab('directory')}>Creator directory</button><button role="tab" aria-selected={tab === 'verification'} onClick={() => setTab('verification')}>Verification notes</button><button role="tab" aria-selected={tab === 'interviews'} onClick={() => setTab('interviews')}>Creator interviews</button></div>
+    <div className="subtabs" role="tablist" aria-label="Creator directory views"><button role="tab" aria-selected={tab === 'directory'} onClick={() => setTab('directory')}>Creator directory</button><button role="tab" aria-selected={tab === 'verification'} onClick={() => setTab('verification')}>Verification notes</button></div>
     {tab === 'directory' ? <div className="creator-grid">{creators.map((creator) => <article className={`creator-card ${creator.verificationStatus}`} key={creator.id}>
       <div className={`creator-avatar${creator.imageUrl ? ' has-image' : ''}`}>
         {creator.imageUrl
@@ -141,8 +141,15 @@ export function CreatorsPage({ creators }: { creators: Creator[] }) {
       <div className="creator-body"><div className="creator-title"><div><h2>{creator.displayName}</h2>{creator.alsoKnownAs && <p>Also known as {creator.alsoKnownAs}</p>}</div><span className={`verify-badge ${creator.verificationStatus}`}>{creator.verificationStatus === 'verified' ? 'Identity checked' : 'Needs confirmation'}</span></div>
       <p>{creator.description}</p><div className="relevance"><strong>Zero Build check</strong><span>{creator.zeroBuildRelevance}</span></div>
       {creator.channels.length ? <div className="channel-list">{creator.channels.filter((channel) => channel.verified).map((channel) => <a key={channel.url} href={channel.url} target="_blank" rel="noreferrer"><span>{channel.platform}</span><strong>{channel.label}</strong><b aria-hidden="true">↗</b><span className="sr-only"> (opens in a new tab)</span></a>)}</div> : <div className="channel-pending">No channel published until identity is confirmed.</div>}</div>
-    </article>)}</div> : tab === 'verification' ? <div className="verification-list">{creators.map((creator) => <article key={creator.id}><div><span className={`verify-dot ${creator.verificationStatus}`} /><h2>{creator.displayName}</h2></div><p>{creator.verificationNote}</p><small>{creator.imageNote}</small></article>)}</div> : <section className="construction-state" role="status" aria-labelledby="creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h2 id="creator-interviews-title">This area is under construction.</h2><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></section>}
+    </article>)}</div> : <div className="verification-list">{creators.map((creator) => <article key={creator.id}><div><span className={`verify-dot ${creator.verificationStatus}`} /><h2>{creator.displayName}</h2></div><p>{creator.verificationNote}</p><small>{creator.imageNote}</small></article>)}</div>}
     <div className="notice neutral"><strong>Community listing policy</strong><span>This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project. Creator portraits show confirmed Icon Series outfits or featured outfits from official creator Locker Bundles.</span></div>
+  </section>;
+}
+
+export function CreatorInterviewsPage() {
+  return <section className="section-wrap page-section">
+    <PageHeader eyebrow="Community conversations" title="Creator interviews" copy="A future home for conversations with creators across the Fortnite Zero Build community." />
+    <section className="construction-state" role="status" aria-labelledby="creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h2 id="creator-interviews-title">This area is under construction.</h2><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></section>
   </section>;
 }
 

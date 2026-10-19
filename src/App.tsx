@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { contentProvider } from './providers/contentProvider';
 import type { SiteContent } from './types';
-import { AboutPage, CreatorsPage, GuidesPage, HomePage, LootPage, UpdatesPage, WeaponsPage } from './pages';
+import { AboutPage, CreatorInterviewsPage, CreatorsPage, GuidesPage, HomePage, LootPage, UpdatesPage, WeaponsPage } from './pages';
 
 const routes = [
   { id: 'home', label: 'Home' },
@@ -9,6 +9,7 @@ const routes = [
   { id: 'loot', label: 'Loot pool' },
   { id: 'updates', label: 'Updates' },
   { id: 'creators', label: 'Creators' },
+  { id: 'interviews', label: 'Creator interviews' },
   { id: 'guides', label: 'Guides' },
   { id: 'about', label: 'About' },
 ] as const;
@@ -78,6 +79,7 @@ function App() {
         {content && route === 'loot' && <LootPage items={content.loot} refreshedAt={content.refreshedAt} />}
         {content && route === 'updates' && <UpdatesPage updates={content.updates} />}
         {content && route === 'creators' && <CreatorsPage creators={content.creators} />}
+        {content && route === 'interviews' && <CreatorInterviewsPage />}
         {content && route === 'guides' && <GuidesPage guides={content.guides} />}
         {content && route === 'about' && <AboutPage />}
       </main>

@@ -22,7 +22,7 @@ function StaticSite() {
         <span><strong>ZERO BUILD</strong><small>Field Guide</small></span>
       </a>
       <nav className="nav-list" aria-label="Complete site content">
-        <a href="#static-home">Home</a><a href="#static-weapons">Weapons</a><a href="#static-loot">Loot pool</a><a href="#static-updates">Updates</a><a href="#static-creators">Creators</a><a href="#static-guides">Guides</a><a href="#static-about">About</a>
+        <a href="#static-home">Home</a><a href="#static-weapons">Weapons</a><a href="#static-loot">Loot pool</a><a href="#static-updates">Updates</a><a href="#static-creators">Creators</a><a href="#static-interviews">Creator interviews</a><a href="#static-guides">Guides</a><a href="#static-about">About</a>
       </nav>
     </header>
 
@@ -63,8 +63,12 @@ function StaticSite() {
           {creator.channels.filter((channel) => channel.verified).length > 0 && <ul>{creator.channels.filter((channel) => channel.verified).map((channel) => <li key={channel.url}><StaticLink href={channel.url}>{channel.platform}: {channel.label}</StaticLink></li>)}</ul>}
           <details><summary>Verification sources</summary><ul>{creator.evidence.map((url) => <li key={url}><StaticLink href={url}>{url}</StaticLink></li>)}</ul></details>
         </article>)}</div>
-        <aside className="construction-state" aria-labelledby="static-creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h3 id="static-creator-interviews-title">This area is under construction.</h3><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></aside>
         <p><strong>Community listing policy:</strong> This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project.</p>
+      </section>
+
+      <section className="section-wrap page-section static-section" id="static-interviews">
+        <header className="page-heading"><p className="eyebrow">Community conversations</p><h2>Creator interviews</h2><p>A future home for conversations with creators across the Fortnite Zero Build community.</p></header>
+        <div className="construction-state" aria-labelledby="static-creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h3 id="static-creator-interviews-title">This area is under construction.</h3><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></div>
       </section>
 
       <section className="section-wrap page-section static-section" id="static-guides">
