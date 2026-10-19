@@ -63,7 +63,7 @@ function StaticSite() {
           {creator.channels.filter((channel) => channel.verified).length > 0 && <ul>{creator.channels.filter((channel) => channel.verified).map((channel) => <li key={channel.url}><StaticLink href={channel.url}>{channel.platform}: {channel.label}</StaticLink></li>)}</ul>}
           <details><summary>Verification sources</summary><ul>{creator.evidence.map((url) => <li key={url}><StaticLink href={url}>{url}</StaticLink></li>)}</ul></details>
         </article>)}</div>
-        <p><strong>Community listing policy:</strong> This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project.</p>
+        <p><strong>Community listing policy:</strong> This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project. Creator portraits may include a site-owner-selected Fortnite outfit.</p>
       </section>
 
       <section className="section-wrap page-section static-section" id="static-interviews">

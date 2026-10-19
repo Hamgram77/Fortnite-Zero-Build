@@ -1,7 +1,7 @@
 import type { Creator } from '../types';
 
 // Add or edit creator records here. Publish links only after checking identity.
-// Creator-card artwork is used only for confirmed Icon Series outfits or confirmed Locker Bundle selections.
+// Creator-card artwork is used for confirmed Icon Series outfits, confirmed Locker Bundle selections, or site-owner-selected Fortnite outfits.
 export const creators: Creator[] = [
   {
     id: 'the-littlest-snail',
@@ -37,6 +37,24 @@ export const creators: Creator[] = [
       { platform: 'Fortnite', label: 'Official creator profile', url: 'https://www.fortnite.com/@happyhappygal', verified: true },
     ],
     evidence: ['https://linktr.ee/happyhappygal', 'https://www.fortnite.com/@happyhappygal', 'https://www.youtube.com/@happyhappygal', 'https://www.fortnite.com/item-shop/back-bling/sun-sprout-39edfd30?itemNotAvailable=true'],
+  },
+  {
+    id: 'sawahh',
+    displayName: 'Sawahh',
+    alsoKnownAs: 'Sawaahh on YouTube',
+    initials: 'SH',
+    imageUrl: 'creators/sawahh-rippley.png',
+    imageAlt: 'Sawahh’s selected Rippley Fortnite outfit',
+    imageNote: 'Site-owner-supplied Rippley outfit artwork; the background was removed for the creator card under Epic’s Fan Content Policy.',
+    description: 'A resilient community streamer known for jumping into high-stakes Zero Build lobbies and trying her absolute best, despite having a lower elimination count than average and a permanent teammates handicap consisting entirely of WesleyWAT throwing shockwaves at her feet.',
+    zeroBuildRelevance: 'The site owner identifies Sawahh as a Zero Build streamer; independent specialization verification remains pending.',
+    zeroBuildSpecialist: false,
+    verificationStatus: 'verified',
+    verificationNote: 'The site owner supplied this channel; the handle resolves to a YouTube channel titled Sawaahh, with an additional “a” in the channel name.',
+    channels: [
+      { platform: 'YouTube', label: 'Sawaahh', url: 'https://www.youtube.com/@sawaahh3890', verified: true },
+    ],
+    evidence: ['https://www.youtube.com/@sawaahh3890'],
   },
   {
     id: 'ali-a',
