@@ -163,7 +163,7 @@ h1, h2, h3, p { text-wrap: pretty; }
 .empty-state { padding: 4rem 2rem; border: 1px dashed rgba(255,255,255,.18); text-align: center; }
 .empty-state p { color: var(--muted); }
 
-.subtabs { display: inline-flex; gap: .3rem; margin: .25rem 0 1.5rem; padding: .3rem; border: 1px solid var(--line); border-radius: .35rem; background: #0b101c; }
+.subtabs { display: inline-flex; flex-wrap: wrap; gap: .3rem; margin: .25rem 0 1.5rem; padding: .3rem; border: 1px solid var(--line); border-radius: .35rem; background: #0b101c; }
 .subtabs button, .segmented button { padding: .65rem .9rem; border: 0; border-radius: .22rem; background: transparent; color: var(--muted); font-size: .78rem; font-weight: 800; cursor: pointer; }
 .subtabs button[aria-selected="true"], .segmented button.active { background: var(--ink); color: #0a0d14; }
 .loot-groups { display: grid; gap: 3rem; margin-top: 3rem; }
@@ -217,6 +217,10 @@ h1, h2, h3, p { text-wrap: pretty; }
 .verification-list h2 { margin: 0; font-size: 1rem; }
 .verification-list p { color: var(--muted); }
 .verification-list small { color: var(--dim); }
+.construction-state { display: grid; grid-template-columns: minmax(7rem, .3fr) 1fr; align-items: center; gap: clamp(1.5rem, 5vw, 4rem); min-height: 20rem; padding: clamp(2rem, 6vw, 5rem); border: 1px dashed rgba(199,255,61,.38); background: linear-gradient(135deg, rgba(199,255,61,.06), rgba(73,225,255,.03)); }
+.construction-state > span { color: transparent; -webkit-text-stroke: 2px var(--lime); font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; font-size: clamp(5rem, 15vw, 10rem); line-height: .8; }
+.construction-state h2, .construction-state h3 { margin: 0; font-size: clamp(1.8rem, 4vw, 3.5rem); line-height: 1; text-transform: uppercase; }
+.construction-state div > p:last-child { max-width: 38rem; color: var(--muted); line-height: 1.7; }
 .verify-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); }
 .verify-dot.needs-confirmation { background: var(--orange); }
 
@@ -260,6 +264,7 @@ h1, h2, h3, p { text-wrap: pretty; }
 }
 
 @media (max-width: 760px) {
+  .construction-state { grid-template-columns: 1fr; min-height: auto; }
   .section-wrap, .site-footer { width: min(100% - 30px, var(--max)); }
   .site-header { padding-inline: 15px; }
   .menu-toggle { display: block; }

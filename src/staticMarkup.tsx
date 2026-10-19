@@ -63,6 +63,7 @@ function StaticSite() {
           {creator.channels.filter((channel) => channel.verified).length > 0 && <ul>{creator.channels.filter((channel) => channel.verified).map((channel) => <li key={channel.url}><StaticLink href={channel.url}>{channel.platform}: {channel.label}</StaticLink></li>)}</ul>}
           <details><summary>Verification sources</summary><ul>{creator.evidence.map((url) => <li key={url}><StaticLink href={url}>{url}</StaticLink></li>)}</ul></details>
         </article>)}</div>
+        <aside className="construction-state" aria-labelledby="static-creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h3 id="static-creator-interviews-title">This area is under construction.</h3><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></aside>
         <p><strong>Community listing policy:</strong> This is a curated, non-exhaustive directory; the Zero Build creator community is too large to list in full. Listed creators do not endorse or sponsor this project.</p>
       </section>
 
