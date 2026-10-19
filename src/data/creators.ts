@@ -80,7 +80,7 @@ export const creators: Creator[] = [
     imageUrl: 'creators/typical-gamer-icon.png',
     imageAlt: 'Typical Gamer Fortnite Icon Series outfit',
     imageNote: 'Official Fortnite Icon Series outfit artwork used under Epic’s Fan Content Policy.',
-    description: 'A major gaming streamer known for mechanical gameplay, high-elimination runs, and tournament coverage. Across Build and Zero Build, his channel also highlights custom Fortnite maps and major community competitions.',
+    description: 'A Fortnite creator whose TG Plays channel publishes frequent videos covering new seasons and updates, sprite hunts, limited-time content, gameplay challenges, pranks, and collaborations. He also features Fortnite Creative experiences developed with his studio JOGO.',
     zeroBuildRelevance: 'Has published Zero Build-specific Fortnite map and gameplay content; the broader channel covers multiple games and modes.',
     zeroBuildSpecialist: false,
     verificationStatus: 'verified',
