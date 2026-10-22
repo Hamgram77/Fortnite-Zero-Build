@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { DamageCalculator } from './components/DamageCalculator';
+import { WeaponTelemetryForm } from './components/WeaponTelemetryForm';
 import type { Creator, GuideTip, LootItem, SiteContent, UpdateItem, Weapon } from './types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -60,6 +62,7 @@ export function HomePage({ content }: { content: SiteContent }) {
 }
 
 export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
+  const [view, setView] = useState<'database' | 'calculator' | 'report'>('database');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
   const [rarity, setRarity] = useState('All');
@@ -76,19 +79,24 @@ export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
   return <section className="section-wrap page-section">
     <PageHeader eyebrow="Database / dated reference" title="Weapon intelligence" copy="Search verified references and official availability notes. Missing values stay missing; patch and rarity context stays attached." />
     <div className="notice warning"><strong>Confidence check</strong><span>Epic’s current Battle Royale notes do not provide full rarity-specific stats or independently confirm Zero Build parity. Reference values are labeled by version.</span></div>
-    <div className="filter-bar" role="search">
-      <label className="search-field"><span>Search weapons</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Try “shotgun”" /></label>
-      <label><span>Category</span><select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((item) => <option key={item}>{item}</option>)}</select></label>
-      <label><span>Rarity</span><select value={rarity} onChange={(event) => setRarity(event.target.value)}>{rarities.map((item) => <option key={item}>{item}</option>)}</select></label>
-      <label><span>Sort by</span><select value={sort} onChange={(event) => setSort(event.target.value)}><option value="name">Name</option><option value="rarity">Rarity</option><option value="damage">Damage</option><option value="fireRate">Fire rate</option></select></label>
-    </div>
-    <p className="result-count" aria-live="polite">{filtered.length} result{filtered.length === 1 ? '' : 's'}</p>
-    {filtered.length ? <div className="weapon-grid">{filtered.map((weapon) => <article className="weapon-card" key={weapon.id}>
-      <div className="weapon-top"><WeaponGlyph category={weapon.category} /><div><span className={`status-tag ${weapon.availability}`}>{weapon.availability}</span><h2>{weapon.name}</h2><p>{weapon.category} · {weapon.rarity}</p></div></div>
-      <dl className="stat-grid"><Stat label="Damage" value={weapon.damage} /><Stat label="Headshot" value={weapon.headshotDamage} /><Stat label="Fire rate" value={weapon.fireRate} unit="/s" /><Stat label="Magazine" value={weapon.magazineSize} /><Stat label="Reload" value={weapon.reloadTime} unit="s" /></dl>
-      <p className="context-note">{weapon.statContext}</p><p className="card-note">{weapon.note}</p><SourceLink href={weapon.sourceUrl}>{weapon.sourceLabel}</SourceLink>
-    </article>)}</div> : <div className="empty-state"><strong>No weapons match those filters.</strong><p>Clear a filter or try a broader name.</p><button className="button ghost" onClick={() => { setSearch(''); setCategory('All'); setRarity('All'); }}>Reset filters</button></div>}
-    <div className="legend-panel"><h2>Reading the numbers</h2><div><p><strong>Damage</strong> Base body damage for the named rarity and cited version.</p><p><strong>Headshot</strong> Reported critical damage or a documented cap—not an estimate.</p><p><strong>Fire rate</strong> Shots per second. A faster value does not account for bloom, recoil, or accuracy.</p><p><strong>Reload</strong> Seconds for the cited rarity. Some shell-fed weapons behave differently mid-reload.</p></div></div>
+    <div className="subtabs weapon-tabs" role="tablist" aria-label="Weapon intelligence tools"><button role="tab" aria-selected={view === 'database'} onClick={() => setView('database')}>Weapon database</button><button role="tab" aria-selected={view === 'calculator'} onClick={() => setView('calculator')}>Damage calculator</button><button role="tab" aria-selected={view === 'report'} onClick={() => setView('report')}>Report telemetry</button></div>
+    {view === 'database' && <>
+      <div className="filter-bar" role="search">
+        <label className="search-field"><span>Search weapons</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Try “shotgun”" /></label>
+        <label><span>Category</span><select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <label><span>Rarity</span><select value={rarity} onChange={(event) => setRarity(event.target.value)}>{rarities.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <label><span>Sort by</span><select value={sort} onChange={(event) => setSort(event.target.value)}><option value="name">Name</option><option value="rarity">Rarity</option><option value="damage">Damage</option><option value="fireRate">Fire rate</option></select></label>
+      </div>
+      <p className="result-count" aria-live="polite">{filtered.length} result{filtered.length === 1 ? '' : 's'}</p>
+      {filtered.length ? <div className="weapon-grid">{filtered.map((weapon) => <article className="weapon-card" key={weapon.id}>
+        <div className="weapon-top"><WeaponGlyph category={weapon.category} /><div><span className={`status-tag ${weapon.availability}`}>{weapon.availability}</span><h2>{weapon.name}</h2><p>{weapon.category} · {weapon.rarity}</p></div></div>
+        <dl className="stat-grid"><Stat label="Damage" value={weapon.damage} /><Stat label="Headshot" value={weapon.headshotDamage} /><Stat label="Fire rate" value={weapon.fireRate} unit="/s" /><Stat label="Magazine" value={weapon.magazineSize} /><Stat label="Reload" value={weapon.reloadTime} unit="s" /></dl>
+        <p className="context-note">{weapon.statContext}</p><p className="card-note">{weapon.note}</p><SourceLink href={weapon.sourceUrl}>{weapon.sourceLabel}</SourceLink>
+      </article>)}</div> : <div className="empty-state"><strong>No weapons match those filters.</strong><p>Clear a filter or try a broader name.</p><button className="button ghost" onClick={() => { setSearch(''); setCategory('All'); setRarity('All'); }}>Reset filters</button></div>}
+      <div className="legend-panel"><h2>Reading the numbers</h2><div><p><strong>Damage</strong> Base body damage for the named rarity and cited version.</p><p><strong>Headshot</strong> Reported critical damage or a documented cap—not an estimate.</p><p><strong>Fire rate</strong> Shots per second. A faster value does not account for bloom, recoil, or accuracy.</p><p><strong>Reload</strong> Seconds for the cited rarity. Some shell-fed weapons behave differently mid-reload.</p></div></div>
+    </>}
+    {view === 'calculator' && <DamageCalculator />}
+    {view === 'report' && <WeaponTelemetryForm />}
   </section>;
 }
 

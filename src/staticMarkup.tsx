@@ -41,6 +41,28 @@ function StaticSite() {
           <dl><div><dt>Damage</dt><dd>{weapon.damage ?? 'Not available'}</dd></div><div><dt>Headshot damage</dt><dd>{weapon.headshotDamage ?? 'Not available'}</dd></div><div><dt>Fire rate</dt><dd>{weapon.fireRate ?? 'Not available'}</dd></div><div><dt>Magazine size</dt><dd>{weapon.magazineSize ?? 'Not available'}</dd></div><div><dt>Reload time</dt><dd>{weapon.reloadTime ?? 'Not available'}</dd></div></dl>
           <p>{weapon.statContext}</p><p>{weapon.note}</p><p>Verified <time dateTime={weapon.verifiedAt}>{weapon.verifiedAt}</time>. <StaticLink href={weapon.sourceUrl}>{weapon.sourceLabel}</StaticLink></p>
         </article>)}</div>
+        <article className="static-tool-panel">
+          <h3>Zero Build damage calculator</h3>
+          <p>The interactive calculator determines body shots and headshots required to eliminate a target with 250 total health: 100 HP, 100 Shield, and 50 Overshield.</p>
+          <p><strong>Formula:</strong> shots required = ceiling of 250 divided by damage per shot.</p>
+          <p>Inputs accept verified base damage and headshot damage. Results report the first whole shot that reaches or exceeds 250 damage.</p>
+        </article>
+        <article className="static-tool-panel">
+          <h3>Report missing weapon telemetry</h3>
+          <p><strong>Proof required:</strong> Help us clear the “Not available” status. All submissions require unedited video proof showing the damage numbers in a live Zero Build match.</p>
+          <p><strong>Privacy:</strong> Do not submit names, email addresses, phone numbers, usernames, social handles, contact details, or free-form messages. This form accepts game telemetry only and is processed by FormSubmit.</p>
+          <form action="https://formsubmit.co/grcarhart@icloud.com" method="POST">
+            <input type="hidden" name="_subject" value="Zero Build weapon telemetry submission" />
+            <input type="hidden" name="_template" value="table" />
+            <p><label>Weapon name <input name="Weapon Name" required minLength={2} maxLength={60} pattern="[A-Za-z0-9 .'-]{2,60}" /></label></p>
+            <p><label>Patch version <input name="Patch Version" required maxLength={16} pattern="v?[0-9]+([.][0-9]+){0,2}" /></label></p>
+            <p><label>Rarity <select name="Rarity" required><option value="">Select rarity</option><option>Common</option><option>Uncommon</option><option>Rare</option><option>Epic</option><option>Legendary</option><option>Mythic</option><option>Exotic</option></select></label></p>
+            <p><label>Observed base damage <input name="Observed Base Damage" type="number" required min="0.01" max="1000" step="0.01" /></label></p>
+            <p><label>Observed headshot damage <input name="Observed Headshot Damage" type="number" required min="0.01" max="1000" step="0.01" /></label></p>
+            <p><label>Unedited YouTube or Twitch proof URL <input name="Unedited Video Proof" type="url" required maxLength={300} /></label></p>
+            <button type="submit">Submit telemetry</button>
+          </form>
+        </article>
       </section>
 
       <section className="section-wrap page-section static-section" id="static-loot">

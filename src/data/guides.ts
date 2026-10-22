@@ -7,6 +7,8 @@ export const guides: GuideTip[] = [
   { category: 'Rotations', level: 'Advanced', title: 'Read the quiet side', text: 'Use eliminations, terrain, and remaining teams to estimate where congestion is forming. Choose routes with multiple exits.', scope: 'General strategy' },
   { category: 'Inventory', level: 'Beginner', title: 'Give every slot a job', text: 'Build a loadout with close-range pressure, dependable range, recovery, and a repositioning option when available.', scope: 'General strategy' },
   { category: 'Healing', level: 'Advanced', title: 'Create time before healing', text: 'Break line of sight, change elevation, and use audio discipline. A heal is only valuable if the enemy cannot cancel it.', scope: 'General strategy' },
+  { category: 'Overshield', level: 'Beginner', title: 'Track the 50 HP Buffer', text: 'Overshield regenerates automatically after 5 seconds of taking no damage, making short-term passive hiding incredibly valuable.', scope: 'General strategy' },
+  { category: 'Overshield', level: 'Advanced', title: 'Abuse the Regeneration Window', text: 'Trade damage, duck behind hard cover to trigger the recharge, and force an opponent to push across open ground while your Overshield is actively recovering.', scope: 'General strategy' },
   { category: 'Endgame', level: 'Beginner', title: 'Keep an exit route', text: 'Do not let the storm, cliffs, and enemy sightlines close around you at the same time. Preserve one playable direction.', scope: 'General strategy' },
   { category: 'Endgame', level: 'Advanced', title: 'Spend resources for position', text: 'Late-game mobility and healing are tools for converting a bad layer or exposed route into a stronger final position.', scope: 'General strategy' },
 ];
