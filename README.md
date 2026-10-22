@@ -47,7 +47,7 @@ The UI loads content through `src/providers/contentProvider.ts`, keeping present
 - Creator directory: `src/data/creators.ts`
 - Strategy guides: `src/data/guides.ts`
 
-The Weapons page also includes a client-side 250-health damage calculator and a game-telemetry submission form. Telemetry reports are sent through FormSubmit to the site owner and intentionally exclude name, email, contact, message, and account fields. Submitters are instructed not to place personal information in the game-data fields.
+The Weapons page also includes a client-side 250-health damage calculator. The game-telemetry submission form is not exposed on the site while submission terms and a privacy policy are unavailable.
 
 When updating data, change the source link, version context, and verification date together. Never fill an unknown field with a guess. Battle Royale information must not be labeled as Zero Build-specific unless its source confirms that scope.
 

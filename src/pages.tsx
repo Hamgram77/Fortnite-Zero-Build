@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { DamageCalculator } from './components/DamageCalculator';
-import { WeaponTelemetryForm } from './components/WeaponTelemetryForm';
 import type { Creator, GuideTip, LootItem, SiteContent, UpdateItem, Weapon } from './types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -62,7 +61,7 @@ export function HomePage({ content }: { content: SiteContent }) {
 }
 
 export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
-  const [view, setView] = useState<'database' | 'calculator' | 'report'>('database');
+  const [view, setView] = useState<'database' | 'calculator'>('database');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
   const [rarity, setRarity] = useState('All');
@@ -79,7 +78,7 @@ export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
   return <section className="section-wrap page-section">
     <PageHeader eyebrow="Database / dated reference" title="Weapon intelligence" copy="Search verified references and official availability notes. Missing values stay missing; patch and rarity context stays attached." />
     <div className="notice warning"><strong>Confidence check</strong><span>Epic’s current Battle Royale notes do not provide full rarity-specific stats or independently confirm Zero Build parity. Reference values are labeled by version.</span></div>
-    <div className="subtabs weapon-tabs" role="tablist" aria-label="Weapon intelligence tools"><button role="tab" aria-selected={view === 'database'} onClick={() => setView('database')}>Weapon database</button><button role="tab" aria-selected={view === 'calculator'} onClick={() => setView('calculator')}>Damage calculator</button><button role="tab" aria-selected={view === 'report'} onClick={() => setView('report')}>Report telemetry</button></div>
+    <div className="subtabs weapon-tabs" role="tablist" aria-label="Weapon intelligence tools"><button role="tab" aria-selected={view === 'database'} onClick={() => setView('database')}>Weapon database</button><button role="tab" aria-selected={view === 'calculator'} onClick={() => setView('calculator')}>Damage calculator</button></div>
     {view === 'database' && <>
       <div className="filter-bar" role="search">
         <label className="search-field"><span>Search weapons</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Try “shotgun”" /></label>
@@ -96,7 +95,6 @@ export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
       <div className="legend-panel"><h2>Reading the numbers</h2><div><p><strong>Damage</strong> Base body damage for the named rarity and cited version.</p><p><strong>Headshot</strong> Reported critical damage or a documented cap—not an estimate.</p><p><strong>Fire rate</strong> Shots per second. A faster value does not account for bloom, recoil, or accuracy.</p><p><strong>Reload</strong> Seconds for the cited rarity. Some shell-fed weapons behave differently mid-reload.</p></div></div>
     </>}
     {view === 'calculator' && <DamageCalculator />}
-    {view === 'report' && <WeaponTelemetryForm />}
   </section>;
 }
 
