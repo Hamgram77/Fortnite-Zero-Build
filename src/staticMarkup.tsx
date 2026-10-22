@@ -2,6 +2,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { creators } from './data/creators';
 import { guides } from './data/guides';
+import { creatorInterviews } from './data/interviews';
 import { loot } from './data/loot';
 import { updates } from './data/updates';
 import { weapons } from './data/weapons';
@@ -73,8 +74,13 @@ function StaticSite() {
       </section>
 
       <section className="section-wrap page-section static-section" id="static-interviews">
-        <header className="page-heading"><p className="eyebrow">Community conversations</p><h2>Creator interviews</h2><p>A future home for conversations with creators across the Fortnite Zero Build community.</p></header>
-        <div className="construction-state" aria-labelledby="static-creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h3 id="static-creator-interviews-title">This area is under construction.</h3><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></div>
+        <header className="page-heading"><p className="eyebrow">Community conversations</p><h2>Creator interviews</h2><p>First-person conversations about the people and values shaping the Fortnite community.</p></header>
+        {creatorInterviews.map((interview) => <article className="static-interview" key={interview.id}>
+          <img src={`${baseUrl}${interview.imageUrl}`} alt={interview.imageAlt} loading="lazy" />
+          <p className="eyebrow">Featured creator</p><h3>{interview.creatorName}: {interview.title}</h3><p>{interview.summary}</p><p>{interview.attribution}</p>
+          {interview.questions.map((item) => <section key={item.question}><h4>{item.question}</h4><blockquote><p>{item.answer}</p><footer>— {interview.creatorName}</footer></blockquote></section>)}
+          <p><StaticLink href={interview.channelUrl}>Visit verified YouTube channel</StaticLink></p>
+        </article>)}
       </section>
 
       <section className="section-wrap page-section static-section" id="static-guides">

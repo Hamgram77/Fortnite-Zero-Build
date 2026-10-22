@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { DamageCalculator } from './components/DamageCalculator';
+import { creatorInterviews } from './data/interviews';
 import type { Creator, GuideTip, LootItem, SiteContent, UpdateItem, Weapon } from './types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -154,8 +155,24 @@ export function CreatorsPage({ creators }: { creators: Creator[] }) {
 
 export function CreatorInterviewsPage() {
   return <section className="section-wrap page-section">
-    <PageHeader eyebrow="Community conversations" title="Creator interviews" copy="A future home for conversations with creators across the Fortnite Zero Build community." />
-    <section className="construction-state" role="status" aria-labelledby="creator-interviews-title"><span aria-hidden="true">404</span><div><p className="eyebrow">Creator interviews</p><h2 id="creator-interviews-title">This area is under construction.</h2><p>Interviews are not available yet. Check back later as this part of the community directory is built.</p></div></section>
+    <PageHeader eyebrow="Community conversations" title="Creator interviews" copy="First-person conversations about the people and values shaping the Fortnite community." />
+    <div className="interview-list">{creatorInterviews.map((interview) => <article className="interview-feature" key={interview.id} aria-labelledby={`${interview.id}-title`}>
+      <aside className="interview-profile">
+        <div className="interview-portrait"><img src={`${import.meta.env.BASE_URL}${interview.imageUrl}`} alt={interview.imageAlt} /></div>
+        <p className="eyebrow">Featured creator</p>
+        <h2>{interview.creatorName}</h2>
+        <p>{interview.attribution}</p>
+        <a className="source-link" href={interview.channelUrl} target="_blank" rel="noreferrer">Visit verified YouTube channel <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+      </aside>
+      <div className="interview-transcript">
+        <header><p className="eyebrow">Community spotlight</p><h2 id={`${interview.id}-title`}>{interview.title}</h2><p>{interview.summary}</p></header>
+        {interview.questions.map((item, index) => <section className="interview-exchange" key={item.question} aria-labelledby={`${interview.id}-question-${index}`}>
+          <p className="interview-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
+          <h3 id={`${interview.id}-question-${index}`}>{item.question}</h3>
+          <blockquote><p>{item.answer}</p><footer>— {interview.creatorName}</footer></blockquote>
+        </section>)}
+      </div>
+    </article>)}</div>
   </section>;
 }
 
