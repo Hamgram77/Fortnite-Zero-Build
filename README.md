@@ -52,6 +52,8 @@ The Weapons page also includes a client-side 250-health damage calculator. The g
 
 When updating data, change the source link, version context, and verification date together. Never fill an unknown field with a guess. Battle Royale information must not be labeled as Zero Build-specific unless its source confirms that scope.
 
+The tournament page separates upcoming and past events, filters by region, mode, and platform, exposes source and eligibility notes, and creates all-day `.ics` downloads for confirmed dates. Exact local times appear only when Epic publishes a precise source-wide timestamp; otherwise visitors are directed to the regional schedule and the in-game Compete tab. Empty outlook cards explicitly identify periods for which Epic has not announced dates.
+
 ## Sources and limitations
 
 Official Fortnite news and Epic Games Community update notes are the primary sources for announcements and availability. Selected rarity-specific weapon values are dated community-reference snapshots and are labeled with their version context in the interface.

@@ -30,6 +30,8 @@
 .static-snapshot .static-about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; margin-top: 2rem; }
 .static-region-links { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0; }
 .static-region-links a { padding: .6rem .75rem; border: 1px solid var(--line); background: var(--panel); }
+.static-outlook { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top: 2rem; }
+.static-outlook article { padding: 1.25rem; border: 1px dashed var(--line); background: var(--panel); }
 .static-snapshot article img { width: 7rem; height: 7rem; object-fit: contain; }
 .static-snapshot article dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
 .static-snapshot article dl div { padding: .5rem; background: var(--panel-strong); }
@@ -328,6 +330,15 @@ h1, h2, h3, p { text-wrap: pretty; }
 .region-links strong { color: var(--lime); font-size: .8rem; }
 .region-links span { grid-column: 1 / -1; color: var(--muted); font-size: .66rem; line-height: 1.3; }
 .region-links b { color: var(--cyan); }
+.tournament-controls { margin: 2rem 0; padding: 1rem; border: 1px solid var(--line); background: rgba(255,255,255,.02); }
+.tournament-controls > .subtabs { margin-top: 0; }
+.tournament-filter-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .75rem; }
+.tournament-filter-grid label { display: grid; gap: .4rem; }
+.tournament-filter-grid label > span { color: var(--dim); font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.tournament-filter-grid select { min-height: 46px; padding: 0 .75rem; border: 1px solid var(--line); border-radius: .25rem; background: #0a101c; color: var(--ink); }
+.timezone-note { display: grid; grid-template-columns: minmax(130px,.25fr) 1fr; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.timezone-note strong { color: var(--cyan); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+.timezone-note span { color: var(--muted); font-size: .76rem; line-height: 1.5; }
 .calendar-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .calendar-toolbar > p { color: var(--dim); font-size: .75rem; }
 .tournament-calendar { overflow: hidden; border: 1px solid var(--line); background: var(--line); }
@@ -350,6 +361,23 @@ h1, h2, h3, p { text-wrap: pretty; }
 .schedule-list article > div > div { padding: 1rem; background: var(--panel); }
 .schedule-list h3 { margin: 0; font-size: .95rem; }
 .schedule-list p { margin: .55rem 0 0; color: var(--muted); font-size: .72rem; line-height: 1.5; }
+.schedule-list .tournament-agenda-card { display: flex; flex-direction: column; padding: 1rem; background: var(--panel); }
+.event-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .8rem; }
+.event-badges span { padding: .26rem .4rem; border: 1px solid var(--line); border-radius: 999px; color: var(--cyan); font-size: .55rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.event-badges .verified-badge { border-color: rgba(199,255,61,.45); color: var(--lime); }
+.tournament-agenda-card dl { display: grid; gap: .65rem; margin: 1rem 0; }
+.tournament-agenda-card dl div { display: grid; gap: .25rem; }
+.tournament-agenda-card dt { color: var(--dim); font-size: .58rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.tournament-agenda-card dd { margin: 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
+.event-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: auto; padding-top: .7rem; }
+.event-actions button { padding: .45rem .6rem; border: 1px solid var(--line); border-radius: .25rem; background: transparent; color: var(--ink); font-size: .66rem; font-weight: 800; cursor: pointer; }
+.event-actions button:hover { border-color: var(--lime); color: var(--lime); }
+.schedule-outlook { display: grid; grid-template-columns: .8fr 1fr 1fr; gap: 1rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--line); }
+.schedule-outlook h2 { margin: 0; font-family: Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif; font-size: clamp(2rem,4vw,3.5rem); line-height: .95; text-transform: uppercase; }
+.schedule-outlook article { min-height: 190px; padding: 1.25rem; border: 1px dashed var(--line); background: var(--panel); }
+.schedule-outlook article > span { color: var(--cyan); font-size: .65rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.schedule-outlook article > strong { display: block; margin-top: 2rem; color: var(--orange); }
+.schedule-outlook article p { color: var(--muted); font-size: .76rem; line-height: 1.55; }
 .tournament-sources { margin-top: 3rem; padding: 1.5rem; border: 1px solid var(--line); background: linear-gradient(135deg,rgba(156,124,255,.07),rgba(73,225,255,.03)); }
 .tournament-sources h2 { margin-top: 0; font-size: 1rem; text-transform: uppercase; }
 .tournament-sources > p { color: var(--muted); line-height: 1.6; }
@@ -368,6 +396,8 @@ h1, h2, h3, p { text-wrap: pretty; }
   .radar { width: min(70vw,440px); }
   .feature-card { grid-column: span 3; }
   .region-links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .schedule-outlook { grid-template-columns: 1fr 1fr; }
+  .schedule-outlook > div { grid-column: 1 / -1; }
   .calendar-cell { min-height: 125px; padding: .45rem; }
   .calendar-event { padding: .4rem; }
   .calendar-event strong { font-size: .61rem; }
@@ -416,6 +446,8 @@ h1, h2, h3, p { text-wrap: pretty; }
   .about-grid { grid-template-columns: 1fr; }
   .about-grid .about-mission { grid-row: auto; }
   .region-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tournament-filter-grid, .static-outlook { grid-template-columns: 1fr; }
+  .timezone-note { grid-template-columns: 1fr; }
   .calendar-weekdays { display: none; }
   .calendar-grid { grid-template-columns: 1fr; }
   .calendar-cell.empty, .calendar-cell:not(.has-events) { display: none; }
@@ -423,6 +455,8 @@ h1, h2, h3, p { text-wrap: pretty; }
   .calendar-cell > time { margin-bottom: .5rem; }
   .calendar-event strong { font-size: .78rem; }
   .schedule-list article, .schedule-list article > div { grid-template-columns: 1fr; }
+  .schedule-outlook { grid-template-columns: 1fr; }
+  .schedule-outlook > div { grid-column: auto; }
   .loot-group, .timeline article { grid-template-columns: 1fr; }
   .loot-list { grid-template-columns: 1fr; }
   .timeline-date { justify-content: start; }

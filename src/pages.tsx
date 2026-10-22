@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { DamageCalculator } from './components/DamageCalculator';
 import { creatorInterviews } from './data/interviews';
-import { competitiveRegions, tournamentCalendarVerifiedAt, tournamentDays, tournamentSources } from './data/tournaments';
+import { competitiveRegions, tournamentCalendarVerifiedAt, tournamentEvents, tournamentSources } from './data/tournaments';
+import type { RegionCode, TournamentEvent } from './data/tournaments';
 import type { Creator, GuideTip, LootItem, SiteContent, UpdateItem, Weapon } from './types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -80,30 +81,76 @@ function AboutContent() {
 export function TournamentsPage() {
   const months = ['2026-10', '2026-11'] as const;
   const [month, setMonth] = useState<(typeof months)[number]>('2026-10');
+  const [region, setRegion] = useState<'All' | RegionCode>('All');
+  const [mode, setMode] = useState('All');
+  const [platform, setPlatform] = useState('All');
+  const [scheduleView, setScheduleView] = useState<'upcoming' | 'past'>('upcoming');
   const monthDate = new Date(`${month}-01T12:00:00`);
   const monthLabel = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(monthDate);
   const startOffset = monthDate.getDay();
   const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
   const cells = Array.from({ length: startOffset + daysInMonth }, (_, index) => index < startOffset ? null : index - startOffset + 1);
-  const visibleDays = tournamentDays.filter((day) => day.date.startsWith(month));
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const filteredEvents = tournamentEvents.filter((event) =>
+    (region === 'All' || event.regions.includes(region)) &&
+    (mode === 'All' || event.modes.includes(mode as TournamentEvent['modes'][number])) &&
+    (platform === 'All' || event.platform === platform) &&
+    (scheduleView === 'upcoming' ? event.date >= today : event.date < today));
+  const visibleEvents = filteredEvents.filter((event) => event.date.startsWith(month));
+  const groupedDays = [...new Set(visibleEvents.map((event) => event.date))].map((date) => ({ date, events: visibleEvents.filter((event) => event.date === date) }));
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return <section className="section-wrap page-section">
     <PageHeader eyebrow="Official schedule snapshot" title="Tournament calendar" copy="Upcoming Fortnite competition dates published by Epic, including Zero Build, Reload, Battle Royale, and FNCS events." />
     <div className="notice warning"><strong>All regions included</strong><span>The calendar covers OCE, Asia, Middle East, Europe, Brazil, NAC, and NAW. Session times vary by region and dates can change, so confirm your exact time and eligibility in Fortnite’s in-game Compete tab.</span></div>
     <div className="region-links" aria-label="Official Fortnite schedules by region">{competitiveRegions.map((region) => <a key={region.code} href={`${tournamentSources.schedule}&region=${region.code}`} target="_blank" rel="noreferrer"><strong>{region.code}</strong><span>{region.label}</span><b aria-hidden="true">↗</b></a>)}</div>
+    <div className="tournament-controls">
+      <div className="subtabs" role="tablist" aria-label="Tournament status"><button role="tab" aria-selected={scheduleView === 'upcoming'} onClick={() => setScheduleView('upcoming')}>Upcoming</button><button role="tab" aria-selected={scheduleView === 'past'} onClick={() => setScheduleView('past')}>Past events</button></div>
+      <div className="tournament-filter-grid">
+        <label><span>Region</span><select value={region} onChange={(event) => setRegion(event.target.value as 'All' | RegionCode)}><option>All</option>{competitiveRegions.map((item) => <option value={item.code} key={item.code}>{item.label}</option>)}</select></label>
+        <label><span>Game mode</span><select value={mode} onChange={(event) => setMode(event.target.value)}>{['All', 'Zero Build', 'Reload', 'Battle Royale', 'FNCS'].map((item) => <option key={item}>{item}</option>)}</select></label>
+        <label><span>Platform</span><select value={platform} onChange={(event) => setPlatform(event.target.value)}>{['All', 'Cross-platform', 'Console', 'Mobile'].map((item) => <option key={item}>{item}</option>)}</select></label>
+      </div>
+      <div className="timezone-note"><strong>Local time zone</strong><span>{timeZone}. Exact local times appear automatically when Epic publishes a source-wide start time; otherwise the calendar directs you to the regional schedule.</span></div>
+    </div>
     <div className="calendar-toolbar"><div className="subtabs" role="tablist" aria-label="Tournament calendar month">{months.map((value) => <button key={value} role="tab" aria-selected={month === value} onClick={() => setMonth(value)}>{new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(`${value}-01T12:00:00`))}</button>)}</div><p>Verified <time dateTime={tournamentCalendarVerifiedAt}>{formatDate(tournamentCalendarVerifiedAt)}</time></p></div>
     <div className="tournament-calendar" aria-label={`${monthLabel} tournament calendar`}>
       <div className="calendar-weekdays" aria-hidden="true">{['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((day) => <span key={day}>{day}</span>)}</div>
       <div className="calendar-grid">{cells.map((day, index) => {
         if (day === null) return <div className="calendar-cell empty" aria-hidden="true" key={`empty-${index}`} />;
         const iso = `${month}-${String(day).padStart(2, '0')}`;
-        const scheduled = tournamentDays.find((item) => item.date === iso);
-        return <article className={`calendar-cell${scheduled ? ' has-events' : ''}`} key={iso}><time dateTime={iso}>{day}</time>{scheduled?.events.map((event) => <div className="calendar-event" key={`${event.name}-${event.time ?? ''}`}><strong>{event.name}</strong>{event.time && <span>{event.time}</span>}<small>{event.region}</small></div>)}</article>;
+        const scheduled = visibleEvents.filter((event) => event.date === iso);
+        return <article className={`calendar-cell${scheduled.length ? ' has-events' : ''}`} key={iso}><time dateTime={iso}>{day}</time>{scheduled.map((event) => <div className="calendar-event" key={event.id}><strong>{event.name}</strong><span>{event.startUtc ? formatLocalTournamentTime(event.startUtc) : 'Regional time · see Epic'}</span><small>{event.regionLabel}</small></div>)}</article>;
       })}</div>
     </div>
-    <section className="schedule-list" aria-labelledby="schedule-list-title"><div className="section-heading"><p className="eyebrow">Accessible agenda</p><h2 id="schedule-list-title">{monthLabel} schedule</h2></div>{visibleDays.map((day) => <article key={day.date}><time dateTime={day.date}>{formatDate(day.date)}</time><div>{day.events.map((event) => <div key={`${event.name}-${event.time ?? ''}`}><h3>{event.name}</h3><p>{[event.time, event.region, event.mode, event.format].filter(Boolean).join(' · ')}</p></div>)}</div></article>)}</section>
+    <section className="schedule-list" aria-labelledby="schedule-list-title"><div className="section-heading"><p className="eyebrow">Accessible agenda</p><h2 id="schedule-list-title">{monthLabel} {scheduleView}</h2></div>{groupedDays.length ? groupedDays.map((day) => <article key={day.date}><time dateTime={day.date}>{formatDate(day.date)}</time><div>{day.events.map((event) => <TournamentAgendaCard event={event} past={scheduleView === 'past'} key={event.id} />)}</div></article>) : <div className="empty-state"><strong>No events match these filters.</strong><p>Try another month, region, mode, platform, or schedule view.</p></div>}</section>
+    <section className="schedule-outlook" aria-labelledby="outlook-title"><div><p className="eyebrow">Future schedule</p><h2 id="outlook-title">Awaiting Epic announcements</h2></div><article><span>December 2026</span><strong>No official dates announced</strong><p>Checked {formatDate(tournamentCalendarVerifiedAt)}. New dates will be added only after Epic publishes them.</p></article><article><span>2027 season</span><strong>No official dates announced</strong><p>Epic’s public schedule currently lists 2026 as its latest available year.</p></article></section>
     <div className="tournament-sources"><h2>Official schedule links</h2><p>This maintained snapshot cannot replace Epic’s live schedule, which can add events or show different sessions by region.</p><div><SourceLink href={tournamentSources.schedule}>Fortnite Competitive schedule</SourceLink><SourceLink href={tournamentSources.fncsReloadRules}>FNCS Solos Reload official rules</SourceLink><SourceLink href={tournamentSources.mobileLan}>Fortnite Mobile Series LAN</SourceLink></div></div>
   </section>;
+}
+
+function formatLocalTournamentTime(value: string) {
+  return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+}
+
+function downloadTournamentCalendar(event: TournamentEvent) {
+  const compactDate = event.date.replaceAll('-', '');
+  const next = new Date(`${event.date}T12:00:00Z`);
+  next.setUTCDate(next.getUTCDate() + 1);
+  const nextDate = next.toISOString().slice(0, 10).replaceAll('-', '');
+  const escapeIcs = (value: string) => value.replaceAll('\\', '\\\\').replaceAll(',', '\\,').replaceAll(';', '\\;').replaceAll('\n', '\\n');
+  const calendar = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Zero Build Field Guide//Tournament Calendar//EN', 'BEGIN:VEVENT', `UID:${event.id}@zero-build-field-guide`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}`, `DTSTART;VALUE=DATE:${compactDate}`, `DTEND;VALUE=DATE:${nextDate}`, `SUMMARY:${escapeIcs(event.name)}`, `LOCATION:${escapeIcs(event.regionLabel)}`, `DESCRIPTION:${escapeIcs(`${event.eligibility} Official source: ${event.sourceUrl}`)}`, `URL:${event.sourceUrl}`, 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
+  const url = URL.createObjectURL(new Blob([calendar], { type: 'text/calendar;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${event.id}.ics`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function TournamentAgendaCard({ event, past }: { event: TournamentEvent; past: boolean }) {
+  return <div className="tournament-agenda-card"><div className="event-badges"><span className="verified-badge">Verified by Epic</span>{event.modes.map((item) => <span key={item}>{item}</span>)}</div><h3>{event.name}</h3><p>{event.regionLabel} · {event.format} · {event.platform}</p><dl><div><dt>Local time</dt><dd>{event.startUtc ? formatLocalTournamentTime(event.startUtc) : 'Regional time not published source-wide'}</dd></div><div><dt>Eligibility</dt><dd>{event.eligibility}</dd></div><div><dt>Last checked</dt><dd>{formatDate(event.verifiedAt)}</dd></div></dl><div className="event-actions"><SourceLink href={event.sourceUrl}>{past ? 'Official results / source' : event.sourceLabel}</SourceLink><button type="button" onClick={() => downloadTournamentCalendar(event)}>Add to calendar (.ics)</button></div></div>;
 }
 
 export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {

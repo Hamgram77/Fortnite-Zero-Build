@@ -6,7 +6,7 @@ import { creatorInterviews } from './data/interviews';
 import { loot } from './data/loot';
 import { updates } from './data/updates';
 import { weapons } from './data/weapons';
-import { competitiveRegions, tournamentCalendarVerifiedAt, tournamentDays, tournamentSources } from './data/tournaments';
+import { competitiveRegions, tournamentCalendarVerifiedAt, tournamentEvents, tournamentSources } from './data/tournaments';
 
 const baseUrl = '/Fortnite-Zero-Build/';
 const refreshedAt = '2026-10-18T14:42:37-05:00';
@@ -71,7 +71,9 @@ function StaticSite() {
         <header className="page-heading"><p className="eyebrow">Official schedule snapshot</p><h2>Tournament calendar</h2><p>Upcoming Fortnite tournament dates across all seven competitive regions: OCE, Asia, Middle East, Europe, Brazil, NAC, and NAW.</p></header>
         <p><strong>Verified:</strong> <time dateTime={tournamentCalendarVerifiedAt}>{tournamentCalendarVerifiedAt}</time>. Session times vary by region and dates can change. Confirm the final schedule in Fortnite’s in-game Compete tab.</p>
         <nav className="static-region-links" aria-label="Official schedules by region">{competitiveRegions.map((region) => <StaticLink key={region.code} href={`${tournamentSources.schedule}&region=${region.code}`}>{region.code}: {region.label}</StaticLink>)}</nav>
-        <div className="static-list">{tournamentDays.map((day) => <article key={day.date}><h3><time dateTime={day.date}>{day.date}</time></h3><ul>{day.events.map((event) => <li key={`${event.name}-${event.region}`}><strong>{event.name}</strong> — {event.region}; {event.mode}; {event.format}</li>)}</ul></article>)}</div>
+        <p><strong>Filters available in the interactive calendar:</strong> upcoming or past events, region, game mode, and platform. Confirmed entries also provide downloadable calendar files.</p>
+        <div className="static-list">{tournamentEvents.map((event) => <article key={event.id}><h3>{event.name}</h3><p><time dateTime={event.date}>{event.date}</time> · {event.regionLabel} · {event.modes.join(' + ')} · {event.format} · {event.platform}</p><p><strong>Eligibility:</strong> {event.eligibility}</p><p><strong>Local time:</strong> {event.startUtc ? new Date(event.startUtc).toISOString() : 'Regional time not published source-wide; check Epic’s schedule or the in-game Compete tab.'}</p><p><strong>Verified by Epic:</strong> checked <time dateTime={event.verifiedAt}>{event.verifiedAt}</time>. <StaticLink href={event.sourceUrl}>{event.sourceLabel}</StaticLink></p></article>)}</div>
+        <div className="static-outlook"><article><h3>December 2026</h3><p><strong>No official tournament dates announced.</strong> Checked {tournamentCalendarVerifiedAt}.</p></article><article><h3>2027 season</h3><p><strong>No official tournament dates announced.</strong> Epic’s public schedule currently lists 2026 as its latest year.</p></article></div>
         <p><StaticLink href={tournamentSources.schedule}>Official Fortnite Competitive schedule</StaticLink> · <StaticLink href={tournamentSources.fncsReloadRules}>FNCS Solos Reload official rules</StaticLink> · <StaticLink href={tournamentSources.mobileLan}>Fortnite Mobile Series LAN</StaticLink></p>
       </section>
 
