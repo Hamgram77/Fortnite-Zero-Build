@@ -25,8 +25,11 @@
 .static-snapshot .static-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
 .static-snapshot .static-card-grid article,
 .static-snapshot .static-list article,
-.static-snapshot #static-about > article { padding: 1.25rem; border: 1px solid var(--line); background: var(--panel); }
+.static-snapshot .static-about-grid > article { padding: 1.25rem; border: 1px solid var(--line); background: var(--panel); }
 .static-snapshot .static-list { display: grid; gap: 1rem; }
+.static-snapshot .static-about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; margin-top: 2rem; }
+.static-region-links { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0; }
+.static-region-links a { padding: .6rem .75rem; border: 1px solid var(--line); background: var(--panel); }
 .static-snapshot article img { width: 7rem; height: 7rem; object-fit: contain; }
 .static-snapshot article dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
 .static-snapshot article dl div { padding: .5rem; background: var(--panel-strong); }
@@ -119,7 +122,6 @@ h1, h2, h3, p { text-wrap: pretty; }
 .section-heading h2, .split-section h2 { margin: 0; font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; font-size: clamp(2.7rem, 5vw, 4.8rem); font-weight: 900; line-height: .92; text-transform: uppercase; }
 .feature-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; margin-top: 2.5rem; background: var(--line); border: 1px solid var(--line); }
 .feature-card { position: relative; grid-column: span 2; min-height: 290px; padding: 1.6rem; background: #0b101c; text-decoration: none; transition: background .2s ease; }
-.feature-card:nth-child(4), .feature-card:nth-child(5) { grid-column: span 3; min-height: 250px; }
 .feature-card:hover { background: #121b2d; }
 .feature-card > span { color: var(--lime); font-family: ui-monospace, monospace; font-size: .72rem; }
 .feature-card h3 { margin: 4.5rem 0 .75rem; font-size: 1.5rem; text-transform: uppercase; }
@@ -314,6 +316,44 @@ h1, h2, h3, p { text-wrap: pretty; }
 .legal-note { max-width: 900px; padding: 2rem 0; }
 .legal-note h2 { font-size: 1rem; text-transform: uppercase; }
 .legal-note p { color: var(--dim); font-size: .8rem; line-height: 1.6; }
+.home-about { padding-block: 6rem 7rem; border-top: 1px solid var(--line); }
+.about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1rem; }
+.about-grid .about-panel { min-height: 0; max-width: none; }
+.about-grid .about-mission { grid-row: span 2; }
+.about-grid .about-panel h2 { margin-top: 0; color: var(--lime); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
+
+.region-links { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; margin: 1.5rem 0 2.5rem; border: 1px solid var(--line); background: var(--line); }
+.region-links a { display: grid; grid-template-columns: 1fr auto; gap: .25rem; min-height: 86px; padding: .8rem; background: #0c111d; text-decoration: none; }
+.region-links a:hover { background: #121b2d; }
+.region-links strong { color: var(--lime); font-size: .8rem; }
+.region-links span { grid-column: 1 / -1; color: var(--muted); font-size: .66rem; line-height: 1.3; }
+.region-links b { color: var(--cyan); }
+.calendar-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.calendar-toolbar > p { color: var(--dim); font-size: .75rem; }
+.tournament-calendar { overflow: hidden; border: 1px solid var(--line); background: var(--line); }
+.calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; }
+.calendar-weekdays span { padding: .7rem; background: #090e18; color: var(--dim); font-size: .65rem; font-weight: 800; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.calendar-cell { min-width: 0; min-height: 150px; padding: .65rem; background: #0a0f1a; }
+.calendar-cell.empty { background: #080c15; }
+.calendar-cell > time { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; color: var(--dim); font: 700 .72rem ui-monospace, monospace; }
+.calendar-cell.has-events > time { background: var(--lime); color: #071009; }
+.calendar-event { margin-top: .55rem; padding: .55rem; border-left: 2px solid var(--cyan); background: rgba(73,225,255,.055); }
+.calendar-event strong, .calendar-event span, .calendar-event small { display: block; }
+.calendar-event strong { font-size: .68rem; line-height: 1.25; }
+.calendar-event span { margin-top: .3rem; color: var(--ink); font-size: .62rem; }
+.calendar-event small { margin-top: .25rem; color: var(--dim); font-size: .58rem; line-height: 1.25; }
+.schedule-list { margin-top: 4rem; border-top: 1px solid var(--line); }
+.schedule-list .section-heading { padding-block: 2rem; }
+.schedule-list article { display: grid; grid-template-columns: minmax(150px, .3fr) 1fr; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--line); }
+.schedule-list article > time { color: var(--lime); font: 700 .78rem ui-monospace, monospace; }
+.schedule-list article > div { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+.schedule-list article > div > div { padding: 1rem; background: var(--panel); }
+.schedule-list h3 { margin: 0; font-size: .95rem; }
+.schedule-list p { margin: .55rem 0 0; color: var(--muted); font-size: .72rem; line-height: 1.5; }
+.tournament-sources { margin-top: 3rem; padding: 1.5rem; border: 1px solid var(--line); background: linear-gradient(135deg,rgba(156,124,255,.07),rgba(73,225,255,.03)); }
+.tournament-sources h2 { margin-top: 0; font-size: 1rem; text-transform: uppercase; }
+.tournament-sources > p { color: var(--muted); line-height: 1.6; }
+.tournament-sources > div { display: flex; flex-wrap: wrap; gap: 1rem; }
 .state-page { min-height: calc(100vh - 76px); display: grid; place-items: center; align-content: center; gap: 1rem; color: var(--muted); }
 .loader { width: 42px; height: 42px; border: 2px solid var(--line); border-top-color: var(--lime); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -327,7 +367,10 @@ h1, h2, h3, p { text-wrap: pretty; }
   .hero-visual { min-height: 430px; }
   .radar { width: min(70vw,440px); }
   .feature-card { grid-column: span 3; }
-  .feature-card:last-child { grid-column: 1 / -1; }
+  .region-links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .calendar-cell { min-height: 125px; padding: .45rem; }
+  .calendar-event { padding: .4rem; }
+  .calendar-event strong { font-size: .61rem; }
   .weapon-grid, .guide-grid { grid-template-columns: repeat(2,1fr); }
   .filter-bar { grid-template-columns: 1fr 1fr; }
   .creator-card { grid-template-columns: 90px 1fr; }
@@ -356,7 +399,7 @@ h1, h2, h3, p { text-wrap: pretty; }
   .manifesto { grid-template-columns: 1fr; gap: .5rem; padding-block: 4rem; }
   .quote-mark { font-size: 5rem; }
   .feature-grid { grid-template-columns: 1fr; }
-  .feature-card, .feature-card:nth-child(4), .feature-card:nth-child(5) { grid-column: auto; min-height: 230px; }
+  .feature-card { grid-column: auto; min-height: 230px; }
   .split-section, .legend-panel { grid-template-columns: 1fr; }
   .filter-bar, .weapon-grid, .guide-grid, .creator-grid { grid-template-columns: 1fr; }
   .tool-heading, .form-actions { flex-direction: column; }
@@ -370,6 +413,16 @@ h1, h2, h3, p { text-wrap: pretty; }
   .weapon-card { min-height: 470px; }
   .legend-panel > div { grid-template-columns: 1fr; }
   .notice { grid-template-columns: 1fr; gap: .5rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-grid .about-mission { grid-row: auto; }
+  .region-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calendar-weekdays { display: none; }
+  .calendar-grid { grid-template-columns: 1fr; }
+  .calendar-cell.empty, .calendar-cell:not(.has-events) { display: none; }
+  .calendar-cell { min-height: 0; padding: 1rem; }
+  .calendar-cell > time { margin-bottom: .5rem; }
+  .calendar-event strong { font-size: .78rem; }
+  .schedule-list article, .schedule-list article > div { grid-template-columns: 1fr; }
   .loot-group, .timeline article { grid-template-columns: 1fr; }
   .loot-list { grid-template-columns: 1fr; }
   .timeline-date { justify-content: start; }

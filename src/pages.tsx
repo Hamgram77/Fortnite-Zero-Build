@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { DamageCalculator } from './components/DamageCalculator';
 import { creatorInterviews } from './data/interviews';
+import { competitiveRegions, tournamentCalendarVerifiedAt, tournamentDays, tournamentSources } from './data/tournaments';
 import type { Creator, GuideTip, LootItem, SiteContent, UpdateItem, Weapon } from './types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -48,8 +49,9 @@ export function HomePage({ content }: { content: SiteContent }) {
           ['01', 'Weapons', 'Search, filter, compare, and inspect the confidence behind each stat.', '#/weapons'],
           ['02', 'Loot report', 'See what Epic has reported—and where Zero Build-specific confirmation is missing.', '#/loot'],
           ['03', 'Updates', 'Read mode-labeled official news without Creative or general updates being miscast.', '#/updates'],
-          ['04', 'Community', 'Find verified creator channels and clear identity checks.', '#/creators'],
-          ['05', 'Guides', 'Practice durable Zero Build principles from first drop to endgame.', '#/guides'],
+          ['04', 'Tournaments', 'Check the official competitive calendar snapshot and regional timing notes.', '#/tournaments'],
+          ['05', 'Community', 'Find verified creator channels and clear identity checks.', '#/creators'],
+          ['06', 'Guides', 'Practice durable Zero Build principles from first drop to endgame.', '#/guides'],
         ].map(([n, title, copy, href]) => <a className="feature-card" href={href} key={title}><span>{n}</span><h3>{title}</h3><p>{copy}</p><b aria-hidden="true">→</b></a>)}
       </div>
     </section>
@@ -58,7 +60,50 @@ export function HomePage({ content }: { content: SiteContent }) {
       <div><p className="eyebrow">Latest official signal</p><h2>{content.updates[0].title}</h2><p>{content.updates[0].summary}</p><SourceLink href={content.updates[0].url}>Read the Epic source</SourceLink></div>
       <div className="tip-panel"><span className="panel-number">TIP / 01</span><h3>Own the next piece of cover</h3><p>Open terrain is a timer. Before leaving safety, know exactly where the next hard cover is—and what you’ll do if it becomes contested.</p><a href="#/guides">More fieldcraft <span aria-hidden="true">→</span></a></div>
     </section>
+
+    <AboutContent />
   </>;
+}
+
+function AboutContent() {
+  return <section className="section-wrap home-about" aria-labelledby="about-title">
+    <PageHeader eyebrow="Trust is a feature" title="About the guide" copy="A community information project designed to be useful when the game moves faster than most databases." />
+    <div className="about-grid">
+      <article className="about-panel about-mission"><h2 id="about-title">Mission</h2><p className="large-copy">Zero Build is more than a game mode. <strong>It’s a community.</strong></p><p>We document its players, celebrate its creators, explain its competitive scene, and give Zero Build fans a place to stay informed. Whether you compete, create content, or just love playing, your voice matters.</p><p>This site is unofficial and is not endorsed by or affiliated with Epic Games.</p></article>
+      <article className="about-panel"><h2>Sources</h2><div className="source-stack"><SourceLink href="https://www.fortnite.com/news">Official Fortnite News</SourceLink><SourceLink href="https://communities.epicgames.com/">Epic Games Communities update notes</SourceLink><SourceLink href="https://prod.api-fortnite.com/swagger/index.html">API Fortnite Swagger documentation</SourceLink><SourceLink href="https://dash.fortnite-api.com/">Fortnite-API documentation</SourceLink><SourceLink href="https://fortnite.fandom.com/wiki/Fortnite_Wiki">Fortnite Wiki reference data</SourceLink></div></article>
+      <article className="about-panel"><h2>Method</h2><ol><li>Official Epic sources establish update scope and item availability.</li><li>Community references may supply versioned stats, always labeled by rarity and patch context.</li><li>Unverified values render as “Not available.”</li><li>Battle Royale claims are not silently promoted to Zero Build claims.</li><li>Creator identities are corroborated before external links are published.</li></ol><p>Corrections can be proposed through this repository’s GitHub Issues after publication; no personal contact details are invented or collected.</p></article>
+    </div>
+    <div className="legal-note"><h2>Ownership & attribution</h2><p>Fortnite and related names, marks, and assets belong to their respective owners. This project uses original interface artwork and links to source material rather than copying official site design or creator imagery.</p></div>
+  </section>;
+}
+
+export function TournamentsPage() {
+  const months = ['2026-10', '2026-11'] as const;
+  const [month, setMonth] = useState<(typeof months)[number]>('2026-10');
+  const monthDate = new Date(`${month}-01T12:00:00`);
+  const monthLabel = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(monthDate);
+  const startOffset = monthDate.getDay();
+  const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+  const cells = Array.from({ length: startOffset + daysInMonth }, (_, index) => index < startOffset ? null : index - startOffset + 1);
+  const visibleDays = tournamentDays.filter((day) => day.date.startsWith(month));
+
+  return <section className="section-wrap page-section">
+    <PageHeader eyebrow="Official schedule snapshot" title="Tournament calendar" copy="Upcoming Fortnite competition dates published by Epic, including Zero Build, Reload, Battle Royale, and FNCS events." />
+    <div className="notice warning"><strong>All regions included</strong><span>The calendar covers OCE, Asia, Middle East, Europe, Brazil, NAC, and NAW. Session times vary by region and dates can change, so confirm your exact time and eligibility in Fortnite’s in-game Compete tab.</span></div>
+    <div className="region-links" aria-label="Official Fortnite schedules by region">{competitiveRegions.map((region) => <a key={region.code} href={`${tournamentSources.schedule}&region=${region.code}`} target="_blank" rel="noreferrer"><strong>{region.code}</strong><span>{region.label}</span><b aria-hidden="true">↗</b></a>)}</div>
+    <div className="calendar-toolbar"><div className="subtabs" role="tablist" aria-label="Tournament calendar month">{months.map((value) => <button key={value} role="tab" aria-selected={month === value} onClick={() => setMonth(value)}>{new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(`${value}-01T12:00:00`))}</button>)}</div><p>Verified <time dateTime={tournamentCalendarVerifiedAt}>{formatDate(tournamentCalendarVerifiedAt)}</time></p></div>
+    <div className="tournament-calendar" aria-label={`${monthLabel} tournament calendar`}>
+      <div className="calendar-weekdays" aria-hidden="true">{['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((day) => <span key={day}>{day}</span>)}</div>
+      <div className="calendar-grid">{cells.map((day, index) => {
+        if (day === null) return <div className="calendar-cell empty" aria-hidden="true" key={`empty-${index}`} />;
+        const iso = `${month}-${String(day).padStart(2, '0')}`;
+        const scheduled = tournamentDays.find((item) => item.date === iso);
+        return <article className={`calendar-cell${scheduled ? ' has-events' : ''}`} key={iso}><time dateTime={iso}>{day}</time>{scheduled?.events.map((event) => <div className="calendar-event" key={`${event.name}-${event.time ?? ''}`}><strong>{event.name}</strong>{event.time && <span>{event.time}</span>}<small>{event.region}</small></div>)}</article>;
+      })}</div>
+    </div>
+    <section className="schedule-list" aria-labelledby="schedule-list-title"><div className="section-heading"><p className="eyebrow">Accessible agenda</p><h2 id="schedule-list-title">{monthLabel} schedule</h2></div>{visibleDays.map((day) => <article key={day.date}><time dateTime={day.date}>{formatDate(day.date)}</time><div>{day.events.map((event) => <div key={`${event.name}-${event.time ?? ''}`}><h3>{event.name}</h3><p>{[event.time, event.region, event.mode, event.format].filter(Boolean).join(' · ')}</p></div>)}</div></article>)}</section>
+    <div className="tournament-sources"><h2>Official schedule links</h2><p>This maintained snapshot cannot replace Epic’s live schedule, which can add events or show different sessions by region.</p><div><SourceLink href={tournamentSources.schedule}>Fortnite Competitive schedule</SourceLink><SourceLink href={tournamentSources.fncsReloadRules}>FNCS Solos Reload official rules</SourceLink><SourceLink href={tournamentSources.mobileLan}>Fortnite Mobile Series LAN</SourceLink></div></div>
+  </section>;
 }
 
 export function WeaponsPage({ weapons }: { weapons: Weapon[] }) {
@@ -185,19 +230,5 @@ export function GuidesPage({ guides }: { guides: GuideTip[] }) {
     <PageHeader eyebrow="Durable fundamentals" title="Fieldcraft" copy="Practical Zero Build habits separated from season-specific mechanics. Start simple, then layer in better decisions." />
     <div className="guide-controls"><div className="chip-row">{categories.map((item) => <button className={category === item ? 'active' : ''} aria-pressed={category === item} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div><div className="segmented"><button className={level === 'All' ? 'active' : ''} onClick={() => setLevel('All')}>All levels</button><button className={level === 'Beginner' ? 'active' : ''} onClick={() => setLevel('Beginner')}>Beginner</button><button className={level === 'Advanced' ? 'active' : ''} onClick={() => setLevel('Advanced')}>Advanced</button></div></div>
     <div className="guide-grid">{shown.map((tip, index) => <article key={tip.title}><div className="guide-index">{String(index + 1).padStart(2, '0')}</div><span>{tip.category} / {tip.level}</span><h2>{tip.title}</h2><p>{tip.text}</p><small>{tip.scope}</small></article>)}</div>
-  </section>;
-}
-
-export function AboutPage() {
-  const [tab, setTab] = useState<'mission' | 'sources' | 'method'>('mission');
-  return <section className="section-wrap page-section">
-    <PageHeader eyebrow="Trust is a feature" title="About the guide" copy="A community information project designed to be useful when the game moves faster than most databases." />
-    <div className="subtabs" role="tablist" aria-label="About sections"><button role="tab" aria-selected={tab === 'mission'} onClick={() => setTab('mission')}>Mission</button><button role="tab" aria-selected={tab === 'sources'} onClick={() => setTab('sources')}>Sources</button><button role="tab" aria-selected={tab === 'method'} onClick={() => setTab('method')}>Method</button></div>
-    <div className="about-panel">
-      {tab === 'mission' && <div><p className="large-copy">Zero Build is more than a game mode. <strong>It’s a community.</strong></p><p>We document its players, celebrate its creators, explain its competitive scene, and give Zero Build fans a place to stay informed. Whether you compete, create content, or just love playing, your voice matters.</p><p>This site is unofficial and is not endorsed by or affiliated with Epic Games.</p></div>}
-      {tab === 'sources' && <div className="source-stack"><SourceLink href="https://www.fortnite.com/news">Official Fortnite News</SourceLink><SourceLink href="https://communities.epicgames.com/">Epic Games Communities update notes</SourceLink><SourceLink href="https://prod.api-fortnite.com/swagger/index.html">API Fortnite Swagger documentation</SourceLink><SourceLink href="https://dash.fortnite-api.com/">Fortnite-API documentation</SourceLink><SourceLink href="https://fortnite.fandom.com/wiki/Fortnite_Wiki">Fortnite Wiki reference data</SourceLink></div>}
-      {tab === 'method' && <div><ol><li>Official Epic sources establish update scope and item availability.</li><li>Community references may supply versioned stats, always labeled by rarity and patch context.</li><li>Unverified values render as “Not available.”</li><li>Battle Royale claims are not silently promoted to Zero Build claims.</li><li>Creator identities are corroborated before external links are published.</li></ol><p>Corrections can be proposed through this repository’s GitHub Issues after publication; no personal contact details are invented or collected.</p></div>}
-    </div>
-    <div className="legal-note"><h2>Ownership & attribution</h2><p>Fortnite and related names, marks, and assets belong to their respective owners. This project uses original interface artwork and links to source material rather than copying official site design or creator imagery.</p></div>
   </section>;
 }

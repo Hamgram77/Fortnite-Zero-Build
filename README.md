@@ -5,7 +5,7 @@ Prazing Epic Games for the creation of Fortnite Zero Build
 
 Zero Build is more than a game mode. It's a community.
 
-This repository contains an independent, responsive information site for Fortnite Zero Build players. It covers weapon references, Battle Royale loot-pool reports, official updates, community-selected creators, and practical strategy. The interface is original and the project is not affiliated with or endorsed by Epic Games.
+This repository contains an independent, responsive information site for Fortnite Zero Build players. It covers weapon references, Battle Royale loot-pool reports, official updates, a multi-region tournament calendar, community-selected creators, and practical strategy. The interface is original and the project is not affiliated with or endorsed by Epic Games.
 
 ## Technology
 
@@ -44,6 +44,7 @@ The UI loads content through `src/providers/contentProvider.ts`, keeping present
 - Weapon references: `src/data/weapons.ts`
 - Loot report: `src/data/loot.ts`
 - Official updates: `src/data/updates.ts`
+- Tournament calendar: `src/data/tournaments.ts`
 - Creator directory: `src/data/creators.ts`
 - Strategy guides: `src/data/guides.ts`
 

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { contentProvider } from './providers/contentProvider';
 import type { SiteContent } from './types';
-import { AboutPage, CreatorInterviewsPage, CreatorsPage, GuidesPage, HomePage, LootPage, UpdatesPage, WeaponsPage } from './pages';
+import { CreatorInterviewsPage, CreatorsPage, GuidesPage, HomePage, LootPage, TournamentsPage, UpdatesPage, WeaponsPage } from './pages';
 
 const routes = [
   { id: 'home', label: 'Home' },
   { id: 'weapons', label: 'Weapons' },
   { id: 'loot', label: 'Loot pool' },
   { id: 'updates', label: 'Updates' },
+  { id: 'tournaments', label: 'Tournaments' },
   { id: 'creators', label: 'Creators' },
   { id: 'interviews', label: 'Creator interviews' },
   { id: 'guides', label: 'Guides' },
-  { id: 'about', label: 'About' },
 ] as const;
 
 type RouteId = (typeof routes)[number]['id'];
@@ -78,15 +78,15 @@ function App() {
         {content && route === 'weapons' && <WeaponsPage weapons={content.weapons} />}
         {content && route === 'loot' && <LootPage items={content.loot} refreshedAt={content.refreshedAt} />}
         {content && route === 'updates' && <UpdatesPage updates={content.updates} />}
+        {content && route === 'tournaments' && <TournamentsPage />}
         {content && route === 'creators' && <CreatorsPage creators={content.creators} />}
         {content && route === 'interviews' && <CreatorInterviewsPage />}
         {content && route === 'guides' && <GuidesPage guides={content.guides} />}
-        {content && route === 'about' && <AboutPage />}
       </main>
 
       <footer className="site-footer">
         <div><strong>Zero Build Field Guide</strong><p>Independent community project. Portions of the materials used are trademarks and/or copyrighted works of Epic Games, Inc. All rights reserved by Epic. This material is not official and is not endorsed by Epic.</p></div>
-        <a href="#/about">Sources & methodology <span aria-hidden="true">→</span></a>
+        <a href="#/home">About, sources & methodology <span aria-hidden="true">→</span></a>
       </footer>
     </div>
   );
