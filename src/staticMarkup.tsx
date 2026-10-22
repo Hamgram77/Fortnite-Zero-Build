@@ -66,6 +66,7 @@ function StaticSite() {
           <img src={`${baseUrl}${creator.imageUrl ?? 'favicon.svg'}`} alt={creator.imageAlt ?? `Neutral placeholder for ${creator.displayName}`} loading="lazy" />
           <h3>{creator.displayName}</h3>{creator.alsoKnownAs && <p>Also known as {creator.alsoKnownAs}</p>}
           <p><strong>{creator.verificationStatus === 'verified' ? 'Identity checked' : 'Needs confirmation'}</strong></p><p>{creator.description}</p>
+          {creator.featuredQuote && <blockquote><p>“{creator.featuredQuote}”</p><footer>— {creator.featuredQuoteAttribution ?? creator.displayName}</footer></blockquote>}
           <p><strong>Zero Build check:</strong> {creator.zeroBuildRelevance}</p><p>{creator.verificationNote}</p><p>{creator.imageNote}</p>
           {creator.channels.filter((channel) => channel.verified).length > 0 && <ul>{creator.channels.filter((channel) => channel.verified).map((channel) => <li key={channel.url}><StaticLink href={channel.url}>{channel.platform}: {channel.label}</StaticLink></li>)}</ul>}
           <details><summary>Verification sources</summary><ul>{creator.evidence.map((url) => <li key={url}><StaticLink href={url}>{url}</StaticLink></li>)}</ul></details>

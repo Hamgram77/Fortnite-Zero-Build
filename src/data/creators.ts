@@ -11,6 +11,8 @@ export const creators: Creator[] = [
     imageAlt: 'The Littlest Snail’s featured Starflare Fortnite outfit',
     imageNote: 'Starflare is featured in LittlestSnail’s official Locker Bundle; artwork is shown under Epic’s Fan Content Policy.',
     description: 'A Fortnite creator whose channel mixes update reactions, hidden secrets, ranked and Unreal challenges, fashion shows, community competitions, and playful collaborations. Her catalog also includes a ranked challenge featuring Zero Build players.',
+    featuredQuote: 'The most important thing a streamer can do is be themselves. By being loud, silly, and not taking myself too seriously, I accept everyone for who they are, and I am lucky that so many of them accept me for myself as well.',
+    featuredQuoteAttribution: 'The Littlest Snail',
     zeroBuildRelevance: 'Fortnite content verified; dedicated Zero Build specialization was not established.',
     zeroBuildSpecialist: false,
     verificationStatus: 'verified',

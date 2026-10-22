@@ -51,6 +51,8 @@ export interface Creator {
   imageAlt?: string;
   imageNote: string;
   description: string;
+  featuredQuote?: string;
+  featuredQuoteAttribution?: string;
   zeroBuildRelevance: string;
   zeroBuildSpecialist: boolean;
   verificationStatus: 'verified' | 'needs-confirmation';
